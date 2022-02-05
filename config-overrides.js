@@ -1,6 +1,6 @@
-import { ProvidePlugin } from "webpack";
+const webpack = require("webpack");
 
-export default function override(config) {
+module.exports = function override(config) {
   const fallback = config.resolve.fallback || {};
 
   Object.assign(fallback, {
@@ -16,11 +16,11 @@ export default function override(config) {
   config.resolve.fallback = fallback;
 
   config.plugins = (config.plugins || []).concat([
-    new ProvidePlugin({
+    new webpack.ProvidePlugin({
       process: "process/browser",
       Buffer: ["buffer", "Buffer"],
     }),
   ]);
 
   return config;
-}
+};
