@@ -1,13 +1,27 @@
-import { Routes, Route } from "react-router-dom";
+import { useContext } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import UserContext from "./context/userContext";
 import Homepage from "./Homepage";
 import Goalpage from "./Goalpage";
-import Landingpage from "./Landingpage";
+import LoginForm from "./forms/LoginForm";
+import SignupForm from "./forms/SignupForm";
 
-function AppRoutes() {
+function AppRoutes({ login, signup }) {
+  const { currentUser } = useContext(UserContext);
+
   return (
     <div className="Routes">
       <Routes>
-        <Route path="/" element={<Landingpage />} />
+        <Route
+          path="/"
+          element={
+            <Navigate
+              to={currentUser === null ? "login" : currentUser.username}
+            />
+          }
+        />
+        <Route path="/login" element={<LoginForm login={login} />} />
+        <Route path="/signup" element={<SignupForm signup={signup} />} />
         <Route path="/:username" element={<Homepage />} />
         <Route path="/:username/:goal_id" element={<Goalpage />} />
       </Routes>

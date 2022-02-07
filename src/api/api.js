@@ -12,7 +12,7 @@ class GoalsAPI {
 
   static async request(endpoint, method = "get", data = {}) {
     const url = `${BASE_URL}/${endpoint}`;
-    const headers = { Authroization: `Bearer ${GoalsAPI.token}` };
+    const headers = { Authorization: `Bearer ${GoalsAPI.token}` };
     const params = method === "get" ? data : {};
 
     try {
@@ -36,7 +36,7 @@ class GoalsAPI {
   /** Signup for site, returns token */
 
   static async signup(data) {
-    let res = await this.request("auth/signup", "post", data);
+    let res = await this.request("auth/register", "post", data);
     return res.token;
   }
 
