@@ -12,7 +12,6 @@ export const TOKEN_STORAGE_ID = "goals-token";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  console.log("currentUser: ", currentUser);
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
 
   /** Load user info from API.
@@ -28,7 +27,6 @@ function App() {
             let { username } = jwt.decode(token);
             GoalsAPI.token = token;
             let currentUser = await GoalsAPI.getCurrentUser(username);
-            console.log("currentUserEFFECT: ", currentUser);
             setCurrentUser(currentUser);
           } catch (err) {
             console.error("Error loading user info:", err);
@@ -71,11 +69,28 @@ function App() {
     }
   }
 
+  /** Site-wide create goal */
+  async function createGoal(goalData) {
+    try {
+      let goal = await GoalsAPI.createGoal(goalData);
+      return { success: true, goal };
+    } catch (err) {
+      console.error("goal creation failed", err);
+      return { success: false, err };
+    }
+  }
+
   return (
     <BrowserRouter>
       <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+        {console.log(currentUser)}
         <div className="App">
-          <AppRoutes login={login} signup={signup} logout={logout} />
+          <AppRoutes
+            login={login}
+            signup={signup}
+            logout={logout}
+            createGoal={createGoal}
+          />
         </div>
       </UserContext.Provider>
     </BrowserRouter>

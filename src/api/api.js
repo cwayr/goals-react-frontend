@@ -47,6 +47,13 @@ class GoalsAPI {
     return res.user;
   }
 
+  /** Create goal */
+
+  static async createGoal(data) {
+    let res = await this.request("goals", "post", data);
+    return res.goal;
+  }
+
   /** Get individual goal */
 
   static async getGoal(goal_id) {
