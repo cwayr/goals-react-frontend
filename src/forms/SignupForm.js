@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SignupForm({ signup }) {
+  const navigate = useNavigate();
   const initialState = {
     full_name: "",
     username: "",
@@ -18,6 +20,7 @@ function SignupForm({ signup }) {
     console.log(formData);
     e.preventDefault();
     await signup(formData);
+    navigate("/home");
   }
 
   return (
@@ -52,6 +55,7 @@ function SignupForm({ signup }) {
           Sign up
         </button>
       </form>
+      <button onClick={() => navigate("/login")}>Login</button>
     </div>
   );
 }

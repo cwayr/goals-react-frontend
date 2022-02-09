@@ -1,10 +1,11 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import UserContext from "../context/userContext";
 import getMonthsFromNow from "../helpers/getMonthsFromNow";
 
 function NewGoalForm({ createGoal }) {
+  const navigate = useNavigate();
   const { currentUser } = useContext(UserContext);
-  console.log(currentUser);
   const initialState = {
     name: "",
     target_weight: "",
@@ -28,9 +29,7 @@ function NewGoalForm({ createGoal }) {
     let { current_date, target_date } = getMonthsFromNow(+data.timeline);
     goalData.timeline = +data.timeline;
     goalData.start_date = current_date;
-    console.log("current_date: ", current_date);
     goalData.end_date = target_date;
-    console.log("target_date: ", target_date);
 
     return goalData;
   }
@@ -41,11 +40,10 @@ function NewGoalForm({ createGoal }) {
   }
 
   async function handleSubmit(e) {
-    console.log(formData);
     e.preventDefault();
     let goalData = setGoalData(formData);
-    console.log(goalData);
     await createGoal(goalData);
+    navigate("/home");
   }
 
   return (
@@ -78,6 +76,7 @@ function NewGoalForm({ createGoal }) {
           Create
         </button>
       </form>
+      <button onClick={() => navigate("/home")}>Back</button>
     </div>
   );
 }

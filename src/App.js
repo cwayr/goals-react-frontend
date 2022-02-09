@@ -1,6 +1,6 @@
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { BrowserRouter } from "react-router-dom";
 import GoalsAPI from "./api/api";
 import useLocalStorage from "./hooks/useLocalStorage";
 import jwt from "jsonwebtoken";
