@@ -1,7 +1,19 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/userContext";
 import getMonthsFromNow from "../helpers/getMonthsFromNow";
+import {
+  Container,
+  Box,
+  Grid,
+  Button,
+  FormControl,
+  Select,
+  InputLabel,
+  TextField,
+  InputAdornment,
+  MenuItem,
+} from "@mui/material";
 
 function NewGoalForm({ createGoal }) {
   const navigate = useNavigate();
@@ -24,10 +36,10 @@ function NewGoalForm({ createGoal }) {
     goalData.name = data.name;
     goalData.username = currentUser.username;
     goalData.start_weight = null;
-    goalData.target_weight = +data.target_weight;
+    goalData.target_weight = data.target_weight;
 
-    let { current_date, target_date } = getMonthsFromNow(+data.timeline);
-    goalData.timeline = +data.timeline;
+    let { current_date, target_date } = getMonthsFromNow(data.timeline);
+    goalData.timeline = data.timeline;
     goalData.start_date = current_date;
     goalData.end_date = target_date;
 
@@ -47,37 +59,77 @@ function NewGoalForm({ createGoal }) {
   }
 
   return (
-    <div className="NewGoalForm">
-      <h1>This is the goal form</h1>
+    <Container maxWidth="sm">
+      <Button
+        variant="contained"
+        size="small"
+        color="secondary"
+        onClick={() => navigate("/home")}
+        sx={{ position: "fixed", right: 0, mr: 5 }}
+      >
+        Back
+      </Button>
+      <Box sx={{ textAlign: "center", mt: 5, mb: -2 }}>
+        <h1>Create a goal 🏋️‍♀️</h1>
+      </Box>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="number"
-          name="target_weight"
-          placeholder="goal one rep max"
-          value={formData.target_weight}
-          onChange={handleChange}
-          required
-        />
-        <select name="timeline" onChange={handleChange}>
-          <option value="3">3 months</option>
-          <option value="6">6 months</option>
-          <option value="9">9 months</option>
-          <option value="12">1 year</option>
-        </select>
-        <button type="submit" onSubmit={handleSubmit}>
-          Create
-        </button>
+        <Grid container p={3}>
+          <Grid item xs={12} my={1}>
+            <TextField
+              label="Name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              id="outlined-basic"
+              sx={{ width: 1 / 1 }}
+            />
+          </Grid>
+          <Grid item xs={6} my={1} pr={1}>
+            <TextField
+              label="Target weight"
+              name="target_weight"
+              value={formData.target_weight}
+              onChange={handleChange}
+              id="outlined-end-adornment"
+              sx={{ width: 1 / 1 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">lb</InputAdornment>
+                ),
+              }}
+            />
+          </Grid>
+          <Grid item xs={6} my={1} pl={1}>
+            <FormControl fullWidth>
+              <InputLabel id="timeline-btn">Timeline</InputLabel>
+              <Select
+                labelId="timeline-btn-label"
+                name="timeline"
+                label="Timeline"
+                onChange={handleChange}
+                id="timeline-btn"
+                sx={{ width: 1 / 1 }}
+                size="large"
+              >
+                <MenuItem value={3}>3 months</MenuItem>
+                <MenuItem value={6}>6 months</MenuItem>
+                <MenuItem value={9}>9 months</MenuItem>
+                <MenuItem value={12}>1 year</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            onSubmit={handleSubmit}
+            sx={{ mt: 2 }}
+          >
+            Create goal
+          </Button>
+        </Grid>
       </form>
-      <button onClick={() => navigate("/home")}>Back</button>
-    </div>
+    </Container>
   );
 }
 

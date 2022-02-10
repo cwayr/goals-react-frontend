@@ -1,16 +1,19 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
+import ScopedCssBaseline from "@mui/material/ScopedCssBaseline";
 import GoalsAPI from "./api/api";
 import useLocalStorage from "./hooks/useLocalStorage";
 import jwt from "jsonwebtoken";
 import UserContext from "./context/userContext";
 import AppRoutes from "./AppRoutes";
+import LoadingSpinner from "./LoadingSpinner";
 
 // Key name for storing token in local storage
 export const TOKEN_STORAGE_ID = "goals-token";
 
 function App() {
+  const [infoLoaded, setInfoLoaded] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
 
@@ -33,7 +36,9 @@ function App() {
             setCurrentUser(null);
           }
         }
+        setInfoLoaded(true);
       }
+      setInfoLoaded(false);
       getCurrentUser();
     },
     [token]
@@ -52,7 +57,7 @@ function App() {
   }
 
   /** Site-wide logout */
-  function logout(logoutData) {
+  function logout() {
     setCurrentUser(null);
     setToken(null);
   }
@@ -80,20 +85,23 @@ function App() {
     }
   }
 
+  if (!infoLoaded) return <LoadingSpinner />;
+
   return (
-    <BrowserRouter>
-      <UserContext.Provider value={{ currentUser, setCurrentUser }}>
-        {console.log(currentUser)}
-        <div className="App">
-          <AppRoutes
-            login={login}
-            signup={signup}
-            logout={logout}
-            createGoal={createGoal}
-          />
-        </div>
-      </UserContext.Provider>
-    </BrowserRouter>
+    <ScopedCssBaseline>
+      <BrowserRouter>
+        <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+          <div className="App">
+            <AppRoutes
+              login={login}
+              signup={signup}
+              logout={logout}
+              createGoal={createGoal}
+            />
+          </div>
+        </UserContext.Provider>
+      </BrowserRouter>
+    </ScopedCssBaseline>
   );
 }
 

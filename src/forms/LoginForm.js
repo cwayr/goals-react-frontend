@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Container, Box, Grid, Button, TextField } from "@mui/material";
+import LandingLogo from "../LandingLogo";
 
 function LoginForm({ login }) {
   const navigate = useNavigate();
@@ -23,31 +25,57 @@ function LoginForm({ login }) {
   }
 
   return (
-    <div className="LoginForm">
-      <h1>This is the login form</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="username"
-          placeholder="username"
-          value={formData.username}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit" onSubmit={handleSubmit}>
-          Log in
-        </button>
-      </form>
-      <button onClick={() => navigate("/signup")}>Sign up</button>
-    </div>
+    <>
+      <LandingLogo />
+      <Container maxWidth="xs">
+        <Box sx={{ textAlign: "center", mt: 5, mb: -2 }}>
+          <h1>Log in to account</h1>
+        </Box>
+        <form onSubmit={handleSubmit}>
+          <Grid container p={3}>
+            <Grid item xs={12} my={1}>
+              <TextField
+                label="Username"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                sx={{ width: 1 / 1 }}
+              />
+            </Grid>
+            <Grid item xs={12} my={1}>
+              <TextField
+                type="password"
+                label="Password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                sx={{ width: 1 / 1 }}
+              />
+            </Grid>
+            <Box></Box>
+            <Button
+              type="submit"
+              variant="contained"
+              size="large"
+              color="primary"
+              onSubmit={handleSubmit}
+              sx={{ mt: 2, width: 1 / 1 }}
+            >
+              Log in
+            </Button>
+            <Button
+              variant="text"
+              size="small"
+              color="secondary"
+              onClick={() => navigate("/signup")}
+              sx={{ mt: 2, width: 1 / 1 }}
+            >
+              Sign up for new account
+            </Button>
+          </Grid>
+        </form>
+      </Container>
+    </>
   );
 }
 

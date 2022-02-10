@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Container, Box, Grid, Button, TextField } from "@mui/material";
+import LandingLogo from "../LandingLogo";
 
 function SignupForm({ signup }) {
   const navigate = useNavigate();
@@ -24,39 +26,66 @@ function SignupForm({ signup }) {
   }
 
   return (
-    <div className="Signup Form">
-      <h1>This is the signup form</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="full_name"
-          placeholder="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="username"
-          placeholder="username"
-          value={formData.username}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit" onSubmit={handleSubmit}>
-          Sign up
-        </button>
-      </form>
-      <button onClick={() => navigate("/login")}>Login</button>
-    </div>
+    <>
+      <LandingLogo />
+      <Container maxWidth="xs">
+        <Box sx={{ textAlign: "center", mt: 5, mb: -2 }}>
+          <h1>Sign up for account</h1>
+        </Box>
+        <form onSubmit={handleSubmit}>
+          <Grid container p={3}>
+            <Grid item xs={12} my={1}>
+              <TextField
+                label="Name"
+                name="full_name"
+                value={formData.full_name}
+                onChange={handleChange}
+                sx={{ width: 1 / 1 }}
+              />
+            </Grid>
+            <Grid item xs={12} my={1}>
+              <TextField
+                label="Username"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                sx={{ width: 1 / 1 }}
+              />
+            </Grid>
+            <Grid item xs={12} my={1}>
+              <TextField
+                type="password"
+                label="Password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                sx={{ width: 1 / 1 }}
+              />
+            </Grid>
+            <Box></Box>
+            <Button
+              type="submit"
+              variant="contained"
+              size="large"
+              color="primary"
+              onSubmit={handleSubmit}
+              sx={{ mt: 2, width: 1 / 1 }}
+            >
+              Sign up
+            </Button>
+            <Button
+              variant="text"
+              size="small"
+              color="secondary"
+              onClick={() => navigate("/login")}
+              sx={{ mt: 2, width: 1 / 1 }}
+            >
+              Log in to account
+            </Button>
+          </Grid>
+        </form>
+      </Container>
+    </>
   );
 }
 
