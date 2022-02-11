@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import UserContext from "./context/userContext";
-import Homepage from "./Homepage";
-import Goalpage from "./Goalpage";
+import Homepage from "./pages/Homepage";
+import Goalpage from "./pages/Goalpage";
 import LoginForm from "./forms/LoginForm";
 import SignupForm from "./forms/SignupForm";
 import NewGoalForm from "./forms/NewGoalForm";

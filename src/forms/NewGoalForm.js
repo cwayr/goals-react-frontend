@@ -60,17 +60,8 @@ function NewGoalForm({ createGoal }) {
 
   return (
     <Container maxWidth="sm">
-      <Button
-        variant="contained"
-        size="small"
-        color="secondary"
-        onClick={() => navigate("/home")}
-        sx={{ position: "fixed", right: 0, mr: 5 }}
-      >
-        Back
-      </Button>
       <Box sx={{ textAlign: "center", mt: 5, mb: -2 }}>
-        <h1>Create a goal 🏋️‍♀️</h1>
+        <h1>Set a new goal 🏋️‍♀️</h1>
       </Box>
       <form onSubmit={handleSubmit}>
         <Grid container p={3}>
@@ -126,6 +117,14 @@ function NewGoalForm({ createGoal }) {
             sx={{ mt: 2 }}
           >
             Create goal
+          </Button>
+          <Button
+            variant="text"
+            color="secondary"
+            onClick={() => navigate("/home")}
+            sx={{ mt: 2, ml: 2 }}
+          >
+            Back
           </Button>
         </Grid>
       </form>
