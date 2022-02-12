@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/userContext";
 import getMonthsFromNow from "../helpers/getMonthsFromNow";
+import getWeeksBetweenDates from "../helpers/getWeeksBetweenDates";
 import {
   Container,
   Box,
@@ -20,8 +21,8 @@ function NewGoalForm({ createGoal }) {
   const { currentUser } = useContext(UserContext);
   const initialState = {
     name: "",
-    target_weight: "",
-    timeline: 0,
+    target_weight: null,
+    timeline: null,
   };
 
   const [formData, setFormData] = useState(initialState);
@@ -38,10 +39,10 @@ function NewGoalForm({ createGoal }) {
     goalData.start_weight = null;
     goalData.target_weight = data.target_weight;
 
-    let { current_date, target_date } = getMonthsFromNow(data.timeline);
-    goalData.timeline = data.timeline;
-    goalData.start_date = current_date;
-    goalData.end_date = target_date;
+    let { currentDate, targetDate } = getMonthsFromNow(data.timeline);
+    goalData.timeline = getWeeksBetweenDates(data.timeline);
+    goalData.start_date = currentDate;
+    goalData.end_date = targetDate;
 
     return goalData;
   }
@@ -71,7 +72,6 @@ function NewGoalForm({ createGoal }) {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              id="outlined-basic"
               sx={{ width: 1 / 1 }}
             />
           </Grid>
@@ -81,7 +81,6 @@ function NewGoalForm({ createGoal }) {
               name="target_weight"
               value={formData.target_weight}
               onChange={handleChange}
-              id="outlined-end-adornment"
               sx={{ width: 1 / 1 }}
               InputProps={{
                 endAdornment: (

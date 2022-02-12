@@ -60,6 +60,20 @@ class GoalsAPI {
     let res = await this.request(`goals/${goal_id}`);
     return res.goal;
   }
+
+  /** Delete goal */
+
+  static async deleteGoal(goal_id) {
+    let res = await this.request(`goals/${goal_id}`, "delete");
+    return res.goal;
+  }
+
+  /** Create progress */
+
+  static async createProgress(data) {
+    let res = await this.request("goals/progress", "post", data);
+    return res.progress;
+  }
 }
 
 export default GoalsAPI;

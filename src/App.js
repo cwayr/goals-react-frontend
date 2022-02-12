@@ -85,20 +85,34 @@ function App() {
     }
   }
 
+  /** Site-wide create progress */
+  async function createProgress(progressData) {
+    try {
+      let progress = await GoalsAPI.createProgress(progressData);
+      return { success: true, progress };
+    } catch (err) {
+      console.error("progress creation failed", err);
+      return { success: false, err };
+    }
+  }
+
   if (!infoLoaded) return <LoadingSpinner />;
 
   return (
     <ScopedCssBaseline>
       <BrowserRouter>
         <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+          {/* <CreateProgressContext.Provider value={createProgress}> */}
           <div className="App">
             <AppRoutes
               login={login}
               signup={signup}
               logout={logout}
               createGoal={createGoal}
+              createProgress={createProgress}
             />
           </div>
+          {/* </CreateProgressContext.Provider> */}
         </UserContext.Provider>
       </BrowserRouter>
     </ScopedCssBaseline>

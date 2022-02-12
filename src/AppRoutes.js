@@ -7,7 +7,7 @@ import LoginForm from "./forms/LoginForm";
 import SignupForm from "./forms/SignupForm";
 import NewGoalForm from "./forms/NewGoalForm";
 
-function AppRoutes({ login, signup, logout, createGoal }) {
+function AppRoutes({ login, signup, logout, createGoal, createProgress }) {
   const { currentUser } = useContext(UserContext);
 
   return (
@@ -24,7 +24,10 @@ function AppRoutes({ login, signup, logout, createGoal }) {
         <Route path="/login" element={<LoginForm login={login} />} />
         <Route path="/signup" element={<SignupForm signup={signup} />} />
         <Route path="/home" element={<Homepage logout={logout} />} />
-        <Route path="/:goal_id" element={<Goalpage />} />
+        <Route
+          path="/:goal_id"
+          element={<Goalpage createProgress={createProgress} />}
+        />
         <Route
           path="/create"
           element={<NewGoalForm createGoal={createGoal} />}

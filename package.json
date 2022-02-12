@@ -12,12 +12,16 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.25.0",
     "browserify-zlib": "^0.2.0",
+    "chart.js": "^3.7.0",
     "jsonwebtoken": "^8.5.1",
     "materialize-css": "^1.0.0-rc.2",
+    "quickchart-js": "^2.0.3",
     "react": "^17.0.2",
+    "react-chartjs-2": "^4.0.1",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "uuid": "^8.3.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

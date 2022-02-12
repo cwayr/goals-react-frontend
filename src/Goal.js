@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import { Grid, Paper, Button } from "@mui/material";
+import { Grid, Paper } from "@mui/material";
 
 function Goal({ data }) {
   return (
-    <Link to={`/${data.id}`}>
+    <Link to={`/${data.id}`} state={{ id: data.id }}>
       <Paper elevation={6} sx={{ height: 100, p: 2 }}>
         <Grid container>
           <Grid item xs={12} top={0}>

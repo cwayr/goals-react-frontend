@@ -3,15 +3,14 @@
  * Returns { current_date, target_date }
  */
 
-function getMonthsFromNow(monthsLater, now = new Date()) {
+function getMonthsFromNow(monthsLater) {
   let d = new Date();
-
-  let current_date = d.toLocaleDateString();
+  let currentDate = d.toLocaleDateString();
 
   d.setMonth(d.getMonth() + monthsLater);
-  let target_date = d.toLocaleDateString();
+  let targetDate = d.toLocaleDateString();
 
-  return { current_date, target_date };
+  return { currentDate, targetDate };
 }
 
 export default getMonthsFromNow;

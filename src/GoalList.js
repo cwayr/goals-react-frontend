@@ -3,6 +3,7 @@ import UserContext from "./context/userContext";
 import { Grid } from "@mui/material";
 import GoalsAPI from "./api/api";
 import Goal from "./Goal";
+import { v4 as uuidv4 } from "uuid";
 
 function GoalList() {
   const { currentUser } = useContext(UserContext);
@@ -14,14 +15,17 @@ function GoalList() {
       setGoals(user.goals);
     }
     fetchGoals();
-  }, []);
+  }, [currentUser.username]);
 
   function goalsList() {
-    return goals.map((goal) => (
-      <Grid item xs={4}>
-        <Goal key={goal.id} data={goal} />
-      </Grid>
-    ));
+    return goals.map(function (goal) {
+      const newId = uuidv4();
+      return (
+        <Grid item xs={4}>
+          <Goal key={newId} data={goal} />
+        </Grid>
+      );
+    });
   }
 
   return (
