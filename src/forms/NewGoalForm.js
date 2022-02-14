@@ -21,8 +21,8 @@ function NewGoalForm({ createGoal }) {
   const { currentUser } = useContext(UserContext);
   const initialState = {
     name: "",
-    target_weight: null,
-    timeline: null,
+    target_weight: 0,
+    timeline: 0,
   };
 
   const [formData, setFormData] = useState(initialState);

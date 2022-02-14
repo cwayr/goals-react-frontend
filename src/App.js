@@ -21,7 +21,6 @@ function App() {
    * Doesn't run until a user is logged in with a token.
    * Only re-runs on token change.
    */
-
   useEffect(
     function loadUserInfo() {
       async function getCurrentUser() {

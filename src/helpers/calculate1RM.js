@@ -7,4 +7,6 @@ function calculate1RM(weight, reps) {
   return Math.round(oneRepMax * 10) / 10;
 }
 
+console.log(calculate1RM(200, 5));
+
 export default calculate1RM;

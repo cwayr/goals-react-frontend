@@ -1,13 +1,14 @@
 /** Returns the number of weeks between two dates */
 
+const MILLISECONDS_PER_WEEK = 604_800_100;
+
 function getWeeksBetweenDates(monthsLater) {
   const now = Date.now();
 
   const d = new Date();
   const then = d.setMonth(d.getMonth() + monthsLater);
 
-  let millisecondsPerWeek = 1000 * 60 * 60 * 24 * 7;
-  let weeks = Math.floor((then - now) / millisecondsPerWeek);
+  let weeks = Math.floor((then - now) / MILLISECONDS_PER_WEEK);
 
   return weeks;
 }

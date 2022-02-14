@@ -5,10 +5,10 @@
 
 function getMonthsFromNow(monthsLater) {
   let d = new Date();
-  let currentDate = d.toLocaleDateString();
+  let currentDate = d.getTime();
 
   d.setMonth(d.getMonth() + monthsLater);
-  let targetDate = d.toLocaleDateString();
+  let targetDate = d.getTime();
 
   return { currentDate, targetDate };
 }
