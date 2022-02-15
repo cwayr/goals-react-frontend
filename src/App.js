@@ -101,7 +101,6 @@ function App() {
     <ScopedCssBaseline>
       <BrowserRouter>
         <UserContext.Provider value={{ currentUser, setCurrentUser }}>
-          {/* <CreateProgressContext.Provider value={createProgress}> */}
           <div className="App">
             <AppRoutes
               login={login}
@@ -111,7 +110,6 @@ function App() {
               createProgress={createProgress}
             />
           </div>
-          {/* </CreateProgressContext.Provider> */}
         </UserContext.Provider>
       </BrowserRouter>
     </ScopedCssBaseline>

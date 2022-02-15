@@ -3,7 +3,7 @@
  */
 
 function calculate1RM(weight, reps) {
-  oneRepMax = weight * (36 / (37 - reps));
+  const oneRepMax = weight * (36 / (37 - reps));
   return Math.round(oneRepMax * 10) / 10;
 }
 

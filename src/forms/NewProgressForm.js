@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   Container,
   Box,
@@ -7,12 +7,15 @@ import {
   TextField,
   InputAdornment,
 } from "@mui/material";
+import ProgressContext from "../context/progressContext";
+import calculate1RM from "../helpers/calculate1RM";
 
 function NewProgressForm({ createProgress, goal_id }) {
+  const { setProgressData } = useContext(ProgressContext);
   const initialState = {
     goal_id: goal_id,
-    weight: null,
-    reps: null,
+    weight: 0,
+    reps: 0,
     date: "",
   };
 
@@ -25,8 +28,14 @@ function NewProgressForm({ createProgress, goal_id }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    formData.orm = +calculate1RM(formData.weight, formData.reps);
     formData.date = Date.now();
+    setProgressData((progressData) => [
+      ...progressData,
+      { x: formData.date, y: formData.orm },
+    ]);
     await createProgress(formData);
+    setFormData(initialState);
   }
 
   return (
@@ -40,6 +49,7 @@ function NewProgressForm({ createProgress, goal_id }) {
             <TextField
               label="Weight"
               name="weight"
+              type="number"
               value={formData.weight}
               onChange={handleChange}
               sx={{ width: 1 / 1 }}
@@ -54,6 +64,7 @@ function NewProgressForm({ createProgress, goal_id }) {
             <TextField
               label="Reps"
               name="reps"
+              type="number"
               value={formData.reps}
               onChange={handleChange}
               sx={{ width: 1 / 1 }}
