@@ -7,6 +7,8 @@ import {
   TextField,
   InputAdornment,
 } from "@mui/material";
+import { DatePicker, LocalizationProvider } from "@mui/lab";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import ProgressContext from "../context/progressContext";
 import calculate1RM from "../helpers/calculate1RM";
 
@@ -16,10 +18,11 @@ function NewProgressForm({ createProgress, goal_id }) {
     goal_id: goal_id,
     weight: 0,
     reps: 0,
-    date: "",
+    date: null,
   };
 
   const [formData, setFormData] = useState(initialState);
+  const [date, setDate] = useState();
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -29,7 +32,7 @@ function NewProgressForm({ createProgress, goal_id }) {
   async function handleSubmit(e) {
     e.preventDefault();
     formData.orm = +calculate1RM(formData.weight, formData.reps);
-    formData.date = Date.now();
+    formData.date = date ? Date.parse(date) : Date.now();
     setProgressData((progressData) => [
       ...progressData,
       { x: formData.date, y: formData.orm },
@@ -45,7 +48,7 @@ function NewProgressForm({ createProgress, goal_id }) {
       </Box>
       <form onSubmit={handleSubmit}>
         <Grid container p={3}>
-          <Grid item xs={6} my={1} pr={1}>
+          <Grid item xs={4} my={1} pr={1}>
             <TextField
               label="Weight"
               name="weight"
@@ -60,7 +63,7 @@ function NewProgressForm({ createProgress, goal_id }) {
               }}
             />
           </Grid>
-          <Grid item xs={6} my={1} pl={1}>
+          <Grid item xs={4} my={1} px={0.5}>
             <TextField
               label="Reps"
               name="reps"
@@ -70,15 +73,28 @@ function NewProgressForm({ createProgress, goal_id }) {
               sx={{ width: 1 / 1 }}
             />
           </Grid>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            onSubmit={handleSubmit}
-            sx={{ mt: 2 }}
-          >
-            Submit
-          </Button>
+          <Grid item xs={4} my={1} pl={1}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                label="Date"
+                name="date"
+                value={date}
+                onChange={(date) => setDate(date)}
+                renderInput={(params) => <TextField {...params} />}
+                xs={{ width: 1 / 1 }}
+              />
+            </LocalizationProvider>
+          </Grid>
+          <Grid item xs={6} my={1}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              onSubmit={handleSubmit}
+            >
+              Submit
+            </Button>
+          </Grid>
         </Grid>
       </form>
     </Container>
