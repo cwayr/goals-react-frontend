@@ -14,6 +14,7 @@ import calculate1RM from "../helpers/calculate1RM";
 
 function NewProgressForm({ createProgress, goal_id }) {
   const { setProgressData } = useContext(ProgressContext);
+  const { latestProgress, setLatestProgress } = useContext(ProgressContext);
   const initialState = {
     goal_id: goal_id,
     weight: 0,
@@ -33,10 +34,13 @@ function NewProgressForm({ createProgress, goal_id }) {
     e.preventDefault();
     formData.orm = +calculate1RM(formData.weight, formData.reps);
     formData.date = date ? Date.parse(date) : Date.now();
+
+    setLatestProgress({ date: formData.date, orm: formData.orm });
     setProgressData((progressData) => [
       ...progressData,
       { x: formData.date, y: formData.orm },
     ]);
+
     await createProgress(formData);
     setFormData(initialState);
   }
@@ -78,6 +82,7 @@ function NewProgressForm({ createProgress, goal_id }) {
               <DatePicker
                 label="Date"
                 name="date"
+                minDate={latestProgress.date}
                 value={date}
                 onChange={(date) => setDate(date)}
                 renderInput={(params) => <TextField {...params} />}

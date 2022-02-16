@@ -12,26 +12,25 @@ function Goalpage({ createProgress }) {
   const location = useLocation();
   const [infoLoaded, setInfoLoaded] = useState(false);
   const [goal, setGoal] = useState(null);
-  const [progressData, setProgressData] = useState([]);
+  const [progressData, setProgressData] = useState([]); // progress data used to populate LineChart
+  const [latestProgress, setLatestProgress] = useState(null); // keeps track of the latest progress record, to keep records in order and determine current distance from set goal
 
   /** Load goal data from API */
-  useEffect(
-    function loadGoal() {
-      async function getGoal() {
-        try {
-          const goalData = await GoalsAPI.getGoal(location.state.id);
-          setGoal(goalData);
-        } catch (err) {
-          console.error("Error loading goal:", err);
-          setGoal(null);
-        }
-        setInfoLoaded(true);
+  useEffect(function loadGoal() {
+    async function getGoal() {
+      try {
+        const goalData = await GoalsAPI.getGoal(location.state.id);
+        setGoal(goalData);
+        setLatestProgress({ date: +goalData.start_date, orm: 0 });
+      } catch (err) {
+        console.error("Error loading goal:", err);
+        setGoal(null);
       }
-      setInfoLoaded(false);
-      getGoal();
-    },
-    [location.state.id]
-  );
+      setInfoLoaded(true);
+    }
+    setInfoLoaded(false);
+    getGoal();
+  }, []);
 
   function deleteGoal(goal_id) {
     GoalsAPI.deleteGoal(goal_id);
@@ -41,7 +40,14 @@ function Goalpage({ createProgress }) {
   if (!infoLoaded) return <LoadingSpinner />;
 
   return (
-    <ProgressContext.Provider value={{ progressData, setProgressData }}>
+    <ProgressContext.Provider
+      value={{
+        progressData,
+        setProgressData,
+        latestProgress,
+        setLatestProgress,
+      }}
+    >
       <Container maxWidth="lg">
         <Button
           variant="contained"
