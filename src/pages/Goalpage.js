@@ -4,6 +4,7 @@ import GoalsAPI from "../api/api";
 import { Container, Button, Grid } from "@mui/material";
 import ProgressContext from "../context/progressContext";
 import LineChart from "../LineChart";
+import BarChart from "../BarChart";
 import NewProgressForm from "../forms/NewProgressForm";
 import LoadingSpinner from "../LoadingSpinner";
 
@@ -13,9 +14,19 @@ function Goalpage({ createProgress }) {
   const [infoLoaded, setInfoLoaded] = useState(false);
   const [goal, setGoal] = useState(null);
   const [progressData, setProgressData] = useState([]); // progress data used to populate LineChart
-  const [startingProgress, setStartingProgress] = useState(null); // first progress recorded
-  const [latestProgress, setLatestProgress] = useState(null); // most recent progress recorded
 
+  const initialState = {
+    date: 0,
+    orm: 0,
+  };
+
+  const [startingProgress, setStartingProgress] = useState(initialState); // first progress recorded
+  const [latestProgress, setLatestProgress] = useState(initialState); // most recent progress recorded
+  const [ormPercentage, setOrmPercentage] = useState(0); // percentage of goal reached
+  const [datePercentage, setDatePercentage] = useState(0); // percentage of time passed
+
+  console.log("ORM PERCENTAGE", ormPercentage);
+  console.log("DATE PERCENTAGE", datePercentage);
   console.log("g", goal);
   console.log("sp", startingProgress);
   console.log("lp", latestProgress);
@@ -53,6 +64,18 @@ function Goalpage({ createProgress }) {
             date: +goal.latest_progress.date,
             orm: +goal.latest_progress.orm,
           });
+
+          setOrmPercentage(
+            ((+goal.latest_progress.orm - +goal.starting_progress.orm) /
+              (goal.target_weight - +goal.starting_progress.orm)) *
+              100
+          );
+
+          setDatePercentage(
+            ((+goal.latest_progress.date - +goal.starting_progress.date) /
+              (+goal.end_date - +goal.starting_progress.date)) *
+              100
+          );
         } catch (err) {
           console.error("Error setting starting and latest progress", err);
         }
@@ -101,11 +124,20 @@ function Goalpage({ createProgress }) {
           <Grid item xs={8}>
             <LineChart goalData={goal} />
           </Grid>
-          <Grid item xs={4}></Grid>
+          <Grid item xs={4} height={1 / 1}>
+            <BarChart
+              ormPercentage={ormPercentage}
+              datePercentage={datePercentage}
+            />
+          </Grid>
           <Grid item xs={6}>
             <NewProgressForm
-              createProgress={createProgress}
               goal_id={location.state.id}
+              createProgress={createProgress}
+              setOrmPercentage={setOrmPercentage}
+              setDatePercentage={setDatePercentage}
+              targetWeight={goal.target_weight}
+              endDate={goal.end_date}
             />
           </Grid>
           <Grid item xs={3} padding={4}>

@@ -12,9 +12,21 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import ProgressContext from "../context/progressContext";
 import calculate1RM from "../helpers/calculate1RM";
 
-function NewProgressForm({ createProgress, goal_id }) {
-  const { setProgressData, latestProgress, setLatestProgress } =
-    useContext(ProgressContext);
+function NewProgressForm({
+  goal_id,
+  createProgress,
+  setOrmPercentage,
+  setDatePercentage,
+  targetWeight,
+  endDate,
+}) {
+  const {
+    setProgressData,
+    startingProgress,
+    setStartingProgress,
+    latestProgress,
+    setLatestProgress,
+  } = useContext(ProgressContext);
   const initialState = {
     goal_id: goal_id,
     weight: 0,
@@ -40,10 +52,33 @@ function NewProgressForm({ createProgress, goal_id }) {
       { x: formData.date, y: formData.orm },
     ]);
 
+    // if this is the first recorded workout, use form data to set starting progress
+    // form data also must then be used for the following percentage calculations
+    const firstRecord = startingProgress.date === 0;
+
+    if (firstRecord) {
+      setStartingProgress({
+        date: formData.date,
+        orm: formData.orm,
+      });
+    }
+
     setLatestProgress({
       date: formData.date,
       orm: formData.orm,
     });
+
+    setOrmPercentage(
+      ((formData.orm - (firstRecord ? formData.orm : startingProgress.orm)) /
+        (targetWeight - (firstRecord ? formData.orm : startingProgress.orm))) *
+        100
+    );
+
+    setDatePercentage(
+      ((formData.date - (firstRecord ? formData.date : startingProgress.date)) /
+        (+endDate - (firstRecord ? formData.date : startingProgress.date))) *
+        100
+    );
 
     await createProgress(formData);
     setFormData(initialState);

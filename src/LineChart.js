@@ -15,6 +15,17 @@ import "chartjs-adapter-date-fns";
 import ProgressContext from "./context/progressContext";
 
 function LineChart({ goalData }) {
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    TimeScale,
+    Title,
+    Tooltip,
+    Legend
+  );
+
   const { progressData, setProgressData } = useContext(ProgressContext);
 
   /** Use progress data to create array of objects to populate chart
@@ -33,24 +44,13 @@ function LineChart({ goalData }) {
     [goalData, setProgressData]
   );
 
-  ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    TimeScale,
-    Title,
-    Tooltip,
-    Legend
-  );
-
   const options = {
     responsive: true,
     scales: {
       x: {
         type: "time",
         time: {
-          unit: "week",
+          unit: "month",
         },
       },
     },
