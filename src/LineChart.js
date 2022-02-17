@@ -30,7 +30,7 @@ function LineChart({ goalData }) {
         ]);
       });
     },
-    [goalData]
+    [goalData, setProgressData]
   );
 
   ChartJS.register(

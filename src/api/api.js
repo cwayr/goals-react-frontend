@@ -74,6 +74,20 @@ class GoalsAPI {
     let res = await this.request("goals/progress", "post", data);
     return res.progress;
   }
+
+  /** Get starting progress */
+
+  static async getStartingProgress(goal_id) {
+    let res = await this.request(`goals/progress/${goal_id}/starting`);
+    return res.progress;
+  }
+
+  /** Get latest progress */
+
+  static async getLatestProgress(goal_id) {
+    let res = await this.request(`goals/progress/${goal_id}/latest`);
+    return res.progress;
+  }
 }
 
 export default GoalsAPI;

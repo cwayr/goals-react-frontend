@@ -13,24 +13,53 @@ function Goalpage({ createProgress }) {
   const [infoLoaded, setInfoLoaded] = useState(false);
   const [goal, setGoal] = useState(null);
   const [progressData, setProgressData] = useState([]); // progress data used to populate LineChart
-  const [latestProgress, setLatestProgress] = useState(null); // keeps track of the latest progress record, to keep records in order and determine current distance from set goal
+  const [startingProgress, setStartingProgress] = useState(null); // first progress recorded
+  const [latestProgress, setLatestProgress] = useState(null); // most recent progress recorded
+
+  console.log("g", goal);
+  console.log("sp", startingProgress);
+  console.log("lp", latestProgress);
 
   /** Load goal data from API */
-  useEffect(function loadGoal() {
-    async function getGoal() {
-      try {
-        const goalData = await GoalsAPI.getGoal(location.state.id);
-        setGoal(goalData);
-        setLatestProgress({ date: +goalData.start_date, orm: 0 });
-      } catch (err) {
-        console.error("Error loading goal:", err);
-        setGoal(null);
+  useEffect(
+    function loadGoal() {
+      async function getGoal() {
+        try {
+          const goalData = await GoalsAPI.getGoal(location.state.id);
+          setGoal(goalData);
+        } catch (err) {
+          console.error("Error loading goal:", err);
+          setGoal(null);
+        }
+        setInfoLoaded(true);
       }
-      setInfoLoaded(true);
-    }
-    setInfoLoaded(false);
-    getGoal();
-  }, []);
+      setInfoLoaded(false);
+      getGoal();
+    },
+    [location.state.id]
+  );
+
+  /** Set starting and latest progress data once goal is loaded */
+  useEffect(
+    function setStartingandLatestProgress() {
+      if (goal) {
+        try {
+          setStartingProgress({
+            date: +goal.starting_progress.date,
+            orm: +goal.starting_progress.orm,
+          });
+
+          setLatestProgress({
+            date: +goal.latest_progress.date,
+            orm: +goal.latest_progress.orm,
+          });
+        } catch (err) {
+          console.error("Error setting starting and latest progress", err);
+        }
+      }
+    },
+    [goal]
+  );
 
   function deleteGoal(goal_id) {
     GoalsAPI.deleteGoal(goal_id);
@@ -44,6 +73,8 @@ function Goalpage({ createProgress }) {
       value={{
         progressData,
         setProgressData,
+        startingProgress,
+        setStartingProgress,
         latestProgress,
         setLatestProgress,
       }}
