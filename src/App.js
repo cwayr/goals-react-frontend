@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import ScopedCssBaseline from "@mui/material/ScopedCssBaseline";

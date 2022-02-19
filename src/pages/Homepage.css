@@ -1,0 +1,16 @@
+body {
+  background-color: rgb(244, 248, 252);
+}
+
+.Homepage {
+  background-color: rgb(244, 248, 252);
+}
+
+.Homepage .create-goal button {
+  background-color: rgb(255, 255, 255);
+}
+
+.Goal a {
+  text-align: center;
+  text-decoration: none;
+}

@@ -1,0 +1,17 @@
+body {
+  background-color: rgb(244, 248, 252);
+}
+
+.Goalpage {
+  background-color: rgb(244, 248, 252);
+}
+
+.orm-display {
+  text-align: center;
+}
+
+.orm-display h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0;
+}

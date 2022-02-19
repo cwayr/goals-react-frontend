@@ -27,6 +27,7 @@ function NewProgressForm({
     latestProgress,
     setLatestProgress,
   } = useContext(ProgressContext);
+
   const initialState = {
     goal_id: goal_id,
     weight: 0,
@@ -85,12 +86,10 @@ function NewProgressForm({
   }
 
   return (
-    <Container maxWidth="sm">
-      <Box sx={{ m: 3, mt: 6, mb: -4 }}>
-        <h3>Record workout 🏋️‍♀️</h3>
-      </Box>
+    <Container maxWidth="xl" xs={{ pt: -2 }}>
+      <h3>Record workout</h3>
       <form onSubmit={handleSubmit}>
-        <Grid container p={3}>
+        <Grid container>
           <Grid item xs={4} my={1} pr={1}>
             <TextField
               label="Weight"
