@@ -1,0 +1,8 @@
+.LoadingSpinner {
+  background-color: rgb(244, 248, 252);
+}
+
+.LoadingSpinner h3 {
+  font-size: 2rem;
+  text-align: center;
+}

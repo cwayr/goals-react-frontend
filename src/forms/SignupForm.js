@@ -1,3 +1,4 @@
+import "./SignupForm.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Box, Grid, Button, TextField } from "@mui/material";
@@ -6,7 +7,6 @@ import LandingLogo from "../LandingLogo";
 function SignupForm({ signup }) {
   const navigate = useNavigate();
   const initialState = {
-    full_name: "",
     username: "",
     password: "",
   };
@@ -26,7 +26,7 @@ function SignupForm({ signup }) {
   }
 
   return (
-    <>
+    <div className="SignupForm">
       <LandingLogo />
       <Container maxWidth="xs">
         <Box sx={{ textAlign: "center", mt: 5, mb: -2 }}>
@@ -34,15 +34,6 @@ function SignupForm({ signup }) {
         </Box>
         <form onSubmit={handleSubmit}>
           <Grid container p={3}>
-            <Grid item xs={12} my={1}>
-              <TextField
-                label="Name"
-                name="full_name"
-                value={formData.full_name}
-                onChange={handleChange}
-                sx={{ width: 1 / 1 }}
-              />
-            </Grid>
             <Grid item xs={12} my={1}>
               <TextField
                 label="Username"
@@ -85,7 +76,7 @@ function SignupForm({ signup }) {
           </Grid>
         </form>
       </Container>
-    </>
+    </div>
   );
 }
 

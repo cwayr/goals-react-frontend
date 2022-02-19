@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/userContext";
 import { Container, Button, Grid } from "@mui/material";
+import HomeLogo from "../HomeLogo";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import LoadingSpinner from "../LoadingSpinner";
 import GoalList from "../GoalList";
@@ -20,6 +21,7 @@ function Homepage({ logout }) {
 
   return (
     <div className="Homepage">
+      <HomeLogo />
       <Container maxWidth="md">
         <Grid container>
           <Button

@@ -1,3 +1,4 @@
+import "./NewGoalForm.css";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/userContext";
@@ -60,74 +61,76 @@ function NewGoalForm({ createGoal }) {
   }
 
   return (
-    <Container maxWidth="sm">
-      <Box sx={{ textAlign: "center", mt: 5, mb: -2 }}>
-        <h1>Set a new goal 🏋️‍♀️</h1>
-      </Box>
-      <form onSubmit={handleSubmit}>
-        <Grid container p={3}>
-          <Grid item xs={12} my={1}>
-            <TextField
-              label="Name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              sx={{ width: 1 / 1 }}
-            />
-          </Grid>
-          <Grid item xs={6} my={1} pr={1}>
-            <TextField
-              label="Target weight"
-              name="target_weight"
-              value={formData.target_weight}
-              onChange={handleChange}
-              sx={{ width: 1 / 1 }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">lb</InputAdornment>
-                ),
-              }}
-            />
-          </Grid>
-          <Grid item xs={6} my={1} pl={1}>
-            <FormControl fullWidth>
-              <InputLabel id="timeline-btn">Timeline</InputLabel>
-              <Select
-                labelId="timeline-btn-label"
-                name="timeline"
-                label="Timeline"
+    <div className="NewGoalForm">
+      <Container maxWidth="sm">
+        <Box sx={{ textAlign: "center", mt: 5, mb: -2 }}>
+          <h1>Set a new goal 🏋️‍♀️</h1>
+        </Box>
+        <form onSubmit={handleSubmit}>
+          <Grid container p={3}>
+            <Grid item xs={12} my={1}>
+              <TextField
+                label="Name"
+                name="name"
+                value={formData.name}
                 onChange={handleChange}
-                id="timeline-btn"
                 sx={{ width: 1 / 1 }}
-                size="large"
-              >
-                <MenuItem value={3}>3 months</MenuItem>
-                <MenuItem value={6}>6 months</MenuItem>
-                <MenuItem value={9}>9 months</MenuItem>
-                <MenuItem value={12}>1 year</MenuItem>
-              </Select>
-            </FormControl>
+              />
+            </Grid>
+            <Grid item xs={6} my={1} pr={1}>
+              <TextField
+                label="Target weight"
+                name="target_weight"
+                value={formData.target_weight}
+                onChange={handleChange}
+                sx={{ width: 1 / 1 }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">lb</InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
+            <Grid item xs={6} my={1} pl={1}>
+              <FormControl fullWidth>
+                <InputLabel id="timeline-btn">Timeline</InputLabel>
+                <Select
+                  labelId="timeline-btn-label"
+                  name="timeline"
+                  label="Timeline"
+                  onChange={handleChange}
+                  id="timeline-btn"
+                  sx={{ width: 1 / 1 }}
+                  size="large"
+                >
+                  <MenuItem value={3}>3 months</MenuItem>
+                  <MenuItem value={6}>6 months</MenuItem>
+                  <MenuItem value={9}>9 months</MenuItem>
+                  <MenuItem value={12}>1 year</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              onSubmit={handleSubmit}
+              sx={{ mt: 2 }}
+            >
+              Create goal
+            </Button>
+            <Button
+              variant="text"
+              color="secondary"
+              onClick={() => navigate("/home")}
+              sx={{ mt: 2, ml: 2 }}
+            >
+              Back
+            </Button>
           </Grid>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            onSubmit={handleSubmit}
-            sx={{ mt: 2 }}
-          >
-            Create goal
-          </Button>
-          <Button
-            variant="text"
-            color="secondary"
-            onClick={() => navigate("/home")}
-            sx={{ mt: 2, ml: 2 }}
-          >
-            Back
-          </Button>
-        </Grid>
-      </form>
-    </Container>
+        </form>
+      </Container>
+    </div>
   );
 }
 

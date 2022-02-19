@@ -3,7 +3,6 @@ import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 
 function LandingLogo() {
   return (
-    <div className="LandingLogo">
       <Container>
         <FitnessCenterIcon
           color="disabled"
@@ -23,7 +22,6 @@ function LandingLogo() {
           </Box>
         </Box>
       </Container>
-    </div>
   );
 }
 
