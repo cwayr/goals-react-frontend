@@ -1,17 +1,17 @@
 import "./SignupForm.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Box, Grid, Button, TextField } from "@mui/material";
+import { Container, Box, Grid, Button, TextField, Alert } from "@mui/material";
 import LandingLogo from "../LandingLogo";
 
 function SignupForm({ signup }) {
   const navigate = useNavigate();
   const initialState = {
-    username: "",
-    password: "",
+    username: null,
+    password: null,
   };
-
   const [formData, setFormData] = useState(initialState);
+  const [formErrors, setFormErrors] = useState([]);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -19,10 +19,13 @@ function SignupForm({ signup }) {
   }
 
   async function handleSubmit(e) {
-    console.log(formData);
     e.preventDefault();
-    await signup(formData);
-    navigate("/home");
+    let result = await signup(formData);
+    if (result.success) {
+      navigate("/home");
+    } else {
+      setFormErrors(result.err[0]);
+    }
   }
 
   return (
@@ -53,7 +56,6 @@ function SignupForm({ signup }) {
                 sx={{ width: 1 / 1 }}
               />
             </Grid>
-            <Box></Box>
             <Button
               type="submit"
               variant="contained"
@@ -75,6 +77,9 @@ function SignupForm({ signup }) {
             </Button>
           </Grid>
         </form>
+        {formErrors.length > 0 ? (
+          <Alert severity="error">{formErrors}</Alert>
+        ) : null}
       </Container>
     </div>
   );

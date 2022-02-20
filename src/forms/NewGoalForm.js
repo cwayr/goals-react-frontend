@@ -15,18 +15,19 @@ import {
   TextField,
   InputAdornment,
   MenuItem,
+  Alert,
 } from "@mui/material";
 
 function NewGoalForm({ createGoal }) {
   const navigate = useNavigate();
   const { currentUser } = useContext(UserContext);
   const initialState = {
-    name: "",
-    target_weight: 0,
-    timeline: 0,
+    name: null,
+    target_weight: null,
+    timeline: null,
   };
-
   const [formData, setFormData] = useState(initialState);
+  const [formErrors, setFormErrors] = useState([]);
 
   /** Generate goal data from form data
    *
@@ -56,8 +57,12 @@ function NewGoalForm({ createGoal }) {
   async function handleSubmit(e) {
     e.preventDefault();
     let goalData = setGoalData(formData);
-    await createGoal(goalData);
-    navigate("/home");
+    let result = await createGoal(goalData);
+    if (result.success) {
+      navigate("/home");
+    } else {
+      setFormErrors(result.err[0]);
+    }
   }
 
   return (
@@ -129,6 +134,9 @@ function NewGoalForm({ createGoal }) {
             </Button>
           </Grid>
         </form>
+        {formErrors.length > 0 ? (
+          <Alert severity="error">{formErrors}</Alert>
+        ) : null}
       </Container>
     </div>
   );

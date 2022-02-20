@@ -1,17 +1,17 @@
 import "./LoginForm.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Box, Grid, Button, TextField } from "@mui/material";
+import { Container, Box, Grid, Button, TextField, Alert } from "@mui/material";
 import LandingLogo from "../LandingLogo";
 
 function LoginForm({ login }) {
   const navigate = useNavigate();
   const initialState = {
-    username: "",
-    password: "",
+    username: null,
+    password: null,
   };
-
   const [formData, setFormData] = useState(initialState);
+  const [formErrors, setFormErrors] = useState([]);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -19,10 +19,13 @@ function LoginForm({ login }) {
   }
 
   async function handleSubmit(e) {
-    console.log(formData);
     e.preventDefault();
-    await login(formData);
-    navigate("/home");
+    let result = await login(formData);
+    if (result.success) {
+      navigate("/home");
+    } else {
+      setFormErrors(result.err[0]);
+    }
   }
 
   return (
@@ -75,6 +78,9 @@ function LoginForm({ login }) {
             </Button>
           </Grid>
         </form>
+        {formErrors.length > 0 ? (
+          <Alert severity="error">{formErrors}</Alert>
+        ) : null}
       </Container>
     </div>
   );

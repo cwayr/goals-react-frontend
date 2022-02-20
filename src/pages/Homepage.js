@@ -5,7 +5,6 @@ import UserContext from "../context/userContext";
 import { Container, Button, Grid } from "@mui/material";
 import HomeLogo from "../HomeLogo";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import LoadingSpinner from "../LoadingSpinner";
 import GoalList from "../GoalList";
 
 function Homepage({ logout }) {
@@ -16,8 +15,6 @@ function Homepage({ logout }) {
     logout();
     navigate("/login");
   }
-
-  if (!currentUser) return <LoadingSpinner />;
 
   return (
     <div className="Homepage">

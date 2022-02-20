@@ -27,12 +27,6 @@ function Goalpage({ createProgress }) {
   const [ormPercentage, setOrmPercentage] = useState(0); // percentage of goal reached
   const [datePercentage, setDatePercentage] = useState(0); // percentage of time passed
 
-  console.log("ORM PERCENTAGE", ormPercentage);
-  console.log("DATE PERCENTAGE", datePercentage);
-  console.log("g", goal);
-  console.log("sp", startingProgress);
-  console.log("lp", latestProgress);
-
   /** Load goal data from API */
   useEffect(
     function loadGoal() {
@@ -124,7 +118,7 @@ function Goalpage({ createProgress }) {
           </Button>
           <h1>{goal.name}</h1>
           <Grid container>
-            <Grid item xs={7} p={2}>
+            <Grid item xs={7} p={2} mt={-2}>
               <Paper elevation={2} sx={{ p: 4 }}>
                 <LineChart goalData={goal} />
               </Paper>
@@ -139,7 +133,7 @@ function Goalpage({ createProgress }) {
                 />
               </Paper>
             </Grid>
-            <Grid item xs={5} p={2}>
+            <Grid item xs={5} p={2} mt={-2}>
               <Paper elevation={2} sx={{ p: 4 }}>
                 <BarChart
                   ormPercentage={ormPercentage}
@@ -150,7 +144,15 @@ function Goalpage({ createProgress }) {
                 <Grid item xs={6}>
                   <Paper elevation={2} sx={{ p: 4, mt: 4, mr: 2 }}>
                     <div className="orm-display">
-                      <h1>{latestProgress.orm}</h1>
+                      <h1
+                        className={
+                          latestProgress.orm >= goal.target_weight
+                            ? "green"
+                            : null
+                        }
+                      >
+                        {Math.round(latestProgress.orm)}
+                      </h1>
                       <p>Current 1RM</p>
                     </div>
                   </Paper>
