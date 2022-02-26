@@ -1,70 +1,59 @@
-# Getting Started with Create React App
+# GOALS frontend
+
+Frontend for Goals app.
+
+JavaScript / React / Material UI
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+<i><b>Note:</b> This app is not functional without the GOALS API. This can be found [here](https://github.com/cwaymeyer/goals-backend).</i>
+
 ## Available Scripts
 
-In the project directory, you can run:
+#### `npm start`
 
-### `npm start`
+Runs the app in the development mode on [http://localhost:3000](http://localhost:3000).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+#### `npm test`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Launches the test runner in the interactive watch mode.
 
-### `npm test`
+### Component Hierarchy
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<img src="/public/images/component_tree.jpg" width="800"/>
 
-### `npm run build`
+<hr />
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### How does the app work?
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The main functionality of the app lies in the <i>Goalpage</i>, an interactive dashboard to track a specific user goal.
+<br />
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<img src="/public/images/dashboard_screenshot.jpg" width="800"/>
 
-### `npm run eject`
+One rep max (ORM or 1RM) is used to track user progress. ORM is a scalable measure of strength in a specific category, where a weight and reps combination can be reduced to a single number of the maximum weight that can be moved in a single repetition. In this app, ORM is calculated using the [Brzycki formula](https://en.wikipedia.org/wiki/One-repetition_maximum#Brzycki).
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+When a user creates a goal, they enter in a ORM target and a timeline in which they want to reach that target (3, 6, 9, or 12 months). That timeline starts on creation of the goal.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+An important detail for calculating the bar and progress charts(right side of the dashboard) is the start weight. Start weight is set on the first recorded workout:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```
+const firstRecord = startingProgress.date === 0;
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+      if (firstRecord) {
+        setStartingProgress({
+          date: formData.date,
+          orm: formData.orm,
+        });
+      }
+```
 
-## Learn More
+This <i>startingProgress</i> is then used as the base for the percentage calculations used on the bar chart and progress bar.
+Example:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Goal set as 200 lbs
+- First workout is 100 lbs with 1 rep (100 ORM)
+  - The baseline is now set as a scale from 100 - 200
+- Second workout is 120 lbs with 1 rep (120 ORM)
+  - % completed bar and progress line are now at 20%
+- <i>The blue time-passed bar is a percentage of time elapsed from the start date to the latest recorded workout</i>
