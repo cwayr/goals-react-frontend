@@ -22,9 +22,9 @@ function NewGoalForm({ createGoal }) {
   const navigate = useNavigate();
   const { currentUser } = useContext(UserContext);
   const initialState = {
-    name: null,
-    target_weight: null,
-    timeline: null,
+    name: undefined,
+    target_weight: undefined,
+    timeline: undefined,
   };
   const [formData, setFormData] = useState(initialState);
   const [formErrors, setFormErrors] = useState([]);

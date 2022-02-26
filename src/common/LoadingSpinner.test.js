@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
-import App from "./App";
+import LoadingSpinner from "./LoadingSpinner";
 
 it("renders without crashing", function () {
-  render(<App />);
+  render(<LoadingSpinner />);
 });

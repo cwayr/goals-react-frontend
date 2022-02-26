@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,9 +12,8 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import "chartjs-adapter-date-fns";
-import ProgressContext from "./context/progressContext";
 
-function LineChart({ goalData }) {
+function LineChart({ goalData, progressData, setProgressData }) {
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -25,8 +24,6 @@ function LineChart({ goalData }) {
     Tooltip,
     Legend
   );
-
-  const { progressData, setProgressData } = useContext(ProgressContext);
 
   /** Use progress data to create array of objects to populate chart
    *

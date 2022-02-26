@@ -21,8 +21,8 @@ function GoalList() {
     return goals.map(function (goal) {
       const newId = uuidv4();
       return (
-        <Grid item xs={4}>
-          <Goal key={newId} data={goal} />
+        <Grid item xs={4} key={newId}>
+          <Goal data={goal} />
         </Grid>
       );
     });

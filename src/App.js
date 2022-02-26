@@ -6,7 +6,7 @@ import useLocalStorage from "./hooks/useLocalStorage";
 import jwt from "jsonwebtoken";
 import UserContext from "./context/userContext";
 import AppRoutes from "./AppRoutes";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingSpinner from "./common/LoadingSpinner";
 
 // Key name for storing token in local storage
 export const TOKEN_STORAGE_ID = "goals-token";

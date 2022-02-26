@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/userContext";
 import { Container, Button, Grid } from "@mui/material";
-import HomeLogo from "../HomeLogo";
+import HomeLogo from "../common/HomeLogo";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import GoalList from "../GoalList";
 

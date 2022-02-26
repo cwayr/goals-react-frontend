@@ -2,13 +2,13 @@ import "./LoginForm.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Box, Grid, Button, TextField, Alert } from "@mui/material";
-import LandingLogo from "../LandingLogo";
+import LandingLogo from "../common/LandingLogo";
 
 function LoginForm({ login }) {
   const navigate = useNavigate();
   const initialState = {
-    username: null,
-    password: null,
+    username: undefined,
+    password: undefined,
   };
   const [formData, setFormData] = useState(initialState);
   const [formErrors, setFormErrors] = useState([]);

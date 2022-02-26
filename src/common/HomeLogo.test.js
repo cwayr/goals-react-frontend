@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
-import App from "./App";
+import HomeLogo from "./HomeLogo";
 
 it("renders without crashing", function () {
-  render(<App />);
+  render(<HomeLogo />);
 });

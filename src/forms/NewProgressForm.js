@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import {
   Container,
   Grid,
@@ -9,25 +9,21 @@ import {
 } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import ProgressContext from "../context/progressContext";
 import calculate1RM from "../helpers/calculate1RM";
 
 function NewProgressForm({
   goal_id,
+  setProgressData,
   createProgress,
+  startingProgress,
+  setStartingProgress,
+  latestProgress,
+  setLatestProgress,
   setOrmPercentage,
   setDatePercentage,
   targetWeight,
   endDate,
 }) {
-  const {
-    setProgressData,
-    startingProgress,
-    setStartingProgress,
-    latestProgress,
-    setLatestProgress,
-  } = useContext(ProgressContext);
-
   const initialState = {
     goal_id: goal_id,
     weight: null,
@@ -51,8 +47,6 @@ function NewProgressForm({
     setFormSuccess([]);
     formData.orm = +calculate1RM(formData.weight, formData.reps);
     formData.date = date ? Date.parse(date) : Date.now();
-
-    console.log(formData);
 
     let result = await createProgress(formData);
 

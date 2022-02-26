@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
-import App from "./App";
+import ProgressBar from "./ProgressBar";
 
 it("renders without crashing", function () {
-  render(<App />);
+  render(<ProgressBar />);
 });
