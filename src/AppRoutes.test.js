@@ -15,3 +15,14 @@ it("renders without crashing", function () {
     </MemoryRouter>
   );
 });
+
+it("matches snapshot", function () {
+  const { asFragment } = render(
+    <MemoryRouter>
+      <UserProvider>
+        <AppRoutes />
+      </UserProvider>
+    </MemoryRouter>
+  );
+  expect(asFragment()).toMatchSnapshot();
+});

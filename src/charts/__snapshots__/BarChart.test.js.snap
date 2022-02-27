@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<DocumentFragment>
+  <canvas
+    height="150"
+    role="img"
+    width="300"
+  />
+</DocumentFragment>
+`;

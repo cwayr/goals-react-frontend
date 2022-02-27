@@ -9,3 +9,12 @@ it("renders without crashing", function () {
     </MemoryRouter>
   );
 });
+
+it("matches snapshot", function () {
+  const { asFragment } = render(
+    <MemoryRouter>
+      <SignupForm />
+    </MemoryRouter>
+  );
+  expect(asFragment()).toMatchSnapshot();
+})

@@ -15,3 +15,14 @@ it("renders without crashing", function () {
     </UserProvider>
   );
 });
+
+it("matches snapshot", function () {
+  const { asFragment } = render(
+    <UserProvider>
+      <MemoryRouter>
+        <Goalpage />
+      </MemoryRouter>
+    </UserProvider>
+  );
+  expect(asFragment()).toMatchSnapshot();
+});
