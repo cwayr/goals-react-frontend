@@ -15,7 +15,9 @@ exports[`matches snapshot 1`] = `
           Set a new goal 🏋️‍♀️
         </h1>
       </div>
-      <form>
+      <form
+        data-testid="new-goal-form"
+      >
         <div
           class="MuiGrid-root MuiGrid-container css-1cs2yco-MuiGrid-root"
         >

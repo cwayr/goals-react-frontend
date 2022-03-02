@@ -13,7 +13,7 @@ it("renders without crashing", function () {
   );
 });
 
-it("matches snapshot", function() {
+it("matches snapshot", function () {
   const { asFragment } = render(
     <MemoryRouter>
       <UserProvider>
@@ -22,4 +22,16 @@ it("matches snapshot", function() {
     </MemoryRouter>
   );
   expect(asFragment()).toMatchSnapshot();
-})
+});
+
+it("displays correctly", function () {
+  const { getByText } = render(
+    <MemoryRouter>
+      <UserProvider>
+        <Homepage />
+      </UserProvider>
+    </MemoryRouter>
+  );
+  expect(getByText("Hello, demouser")).toBeInTheDocument();
+  expect(getByText("Create new goal")).toBeInTheDocument();
+});

@@ -9,3 +9,8 @@ it("matches snapshot", function () {
   const { asFragment } = render(<ProgressBar />);
   expect(asFragment()).toMatchSnapshot();
 });
+
+it("displays correctly", function () {
+  const { getByText } = render(<ProgressBar />);
+  expect(getByText("Progress")).toBeInTheDocument();
+});

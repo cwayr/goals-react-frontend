@@ -1,6 +1,7 @@
 import UserContext from "./context/userContext";
 import { render } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
+import GoalsAPI from "./api/api";
 
 const progress = [
   {
@@ -34,7 +35,7 @@ const latest_progress = {
 const goal = {
   id: "1",
   name: "Test Goal",
-  username: "demoUser",
+  username: "demouser",
   start_weight: null,
   target_weight: 100,
   timeline: 3,
@@ -45,9 +46,10 @@ const goal = {
   latest_progress: latest_progress,
 };
 
+const user = { username: "demouser", password: "password" };
+
 const demoUser = {
-  username: "demoUser",
-  password: "password",
+  ...user,
   goals: [goal],
 };
 
@@ -57,16 +59,28 @@ const UserProvider = ({ children, currentUser = demoUser }) => (
   </UserContext.Provider>
 );
 
-const renderWithRouter = (ui, { route = "/" } = {}) => {
-  window.history.pushState({}, "Test page", route);
+async function utilBeforeEach() {
+  await GoalsAPI.signup(user);
+  await GoalsAPI.createGoal(goal);
+}
 
-  return render(ui, { wrapper: BrowserRouter });
-};
+async function utilAfterEach() {
+  await GoalsAPI.signout();
+  await GoalsAPI.deleteGoal(goal.id);
+  await GoalsAPI.deleteUser(user.username);
+}
+
+// const renderWithRouter = (ui, { route = "/" } = {}) => {
+//   window.history.pushState({}, "Test page", route);
+
+//   return render(ui, { wrapper: BrowserRouter });
+// };
 
 export {
   UserProvider,
-  renderWithRouter,
   goal,
   starting_progress,
   latest_progress,
+  utilBeforeEach,
+  utilAfterEach,
 };

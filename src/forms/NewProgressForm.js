@@ -101,7 +101,7 @@ function NewProgressForm({
   return (
     <Container maxWidth="xl" xs={{ pt: -2 }}>
       <h3>Record workout</h3>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} data-testid="new-progress-form">
         <Grid container>
           <Grid item xs={4} my={1} pr={1}>
             <TextField

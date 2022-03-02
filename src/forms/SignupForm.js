@@ -35,7 +35,7 @@ function SignupForm({ signup }) {
         <Box sx={{ textAlign: "center", mt: 5, mb: -2 }}>
           <h1>Sign up for account</h1>
         </Box>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} data-testid="signup-form">
           <Grid container p={3}>
             <Grid item xs={12} my={1}>
               <TextField
@@ -81,6 +81,16 @@ function SignupForm({ signup }) {
           <Alert severity="error">{formErrors}</Alert>
         ) : null}
       </Container>
+      <div className="info">
+        This app created by <b>Caleb Waymeyer</b>. Check out the source code{" "}
+        <a
+          href="https://github.com/cwaymeyer/goals-react-frontend"
+          target="_blank"
+        >
+          here
+        </a>
+        .
+      </div>
     </div>
   );
 }

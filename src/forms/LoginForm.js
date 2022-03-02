@@ -35,7 +35,7 @@ function LoginForm({ login }) {
         <Box sx={{ textAlign: "center", mt: 5, mb: -2 }}>
           <h1>Log in to account</h1>
         </Box>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} data-testid="login-form">
           <Grid container p={3}>
             <Grid item xs={12} my={1}>
               <TextField
@@ -59,6 +59,7 @@ function LoginForm({ login }) {
             <Box></Box>
             <Button
               type="submit"
+              data-testid="login-form-submit"
               variant="contained"
               size="large"
               color="primary"
@@ -82,6 +83,16 @@ function LoginForm({ login }) {
           <Alert severity="error">{formErrors}</Alert>
         ) : null}
       </Container>
+      <div className="info">
+        This app created by <b>Caleb Waymeyer</b>. Check out the source code{" "}
+        <a
+          href="https://github.com/cwaymeyer/goals-react-frontend"
+          target="_blank"
+        >
+          here
+        </a>
+        .
+      </div>
     </div>
   );
 }

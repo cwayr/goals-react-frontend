@@ -1,4 +1,15 @@
 .SignupForm {
-    background-color: rgb(244, 248, 252);
-  }
-  
+  background-color: rgb(244, 248, 252);
+}
+
+.info {
+  position: absolute;
+  bottom: 0;
+  margin: 12px;
+  font-size: 1em;
+}
+
+.info a {
+  font-weight: bold;
+  text-decoration: none;
+}

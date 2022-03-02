@@ -17,4 +17,14 @@ it("matches snapshot", function () {
     </MemoryRouter>
   );
   expect(asFragment()).toMatchSnapshot();
-})
+});
+
+it("displays correctly", function () {
+  const { getByTestId, getByText } = render(
+    <MemoryRouter>
+      <SignupForm />
+    </MemoryRouter>
+  );
+  expect(getByText("Sign up for account")).toBeInTheDocument();
+  expect(getByTestId("signup-form")).toBeInTheDocument();
+});

@@ -47,6 +47,13 @@ class GoalsAPI {
     return res.user;
   }
 
+  /** Delete user */
+
+  static async deleteUser(username) {
+    let res = await this.request(`users/${username}`, "delete");
+    return res.user;
+  }
+
   /** Create goal */
 
   static async createGoal(data) {

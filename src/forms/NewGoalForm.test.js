@@ -22,4 +22,16 @@ it("matches snapshot", function () {
     </UserProvider>
   );
   expect(asFragment()).toMatchSnapshot();
-})
+});
+
+it("displays correctly", function () {
+  const { getByTestId, getByText } = render(
+    <UserProvider>
+      <MemoryRouter>
+        <NewGoalForm />
+      </MemoryRouter>
+    </UserProvider>
+  );
+  expect(getByText("Set a new goal 🏋️‍♀️")).toBeInTheDocument();
+  expect(getByTestId("new-goal-form")).toBeInTheDocument();
+});

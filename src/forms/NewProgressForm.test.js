@@ -10,11 +10,12 @@ it("renders without crashing", function () {
   );
 });
 
-it("matches snapshot", function () {
-  const { asFragment } = render(
+it("displays correctly", function () {
+  const { getByTestId, getByText } = render(
     <UserProvider>
       <NewProgressForm latestProgress={latest_progress} />
     </UserProvider>
   );
-  expect(asFragment()).toMatchSnapshot();
+  expect(getByText("Record workout")).toBeInTheDocument();
+  expect(getByTestId("new-progress-form")).toBeInTheDocument();
 });

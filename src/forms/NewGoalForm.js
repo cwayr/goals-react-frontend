@@ -71,7 +71,7 @@ function NewGoalForm({ createGoal }) {
         <Box sx={{ textAlign: "center", mt: 5, mb: -2 }}>
           <h1>Set a new goal 🏋️‍♀️</h1>
         </Box>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} data-testid="new-goal-form">
           <Grid container p={3}>
             <Grid item xs={12} my={1}>
               <TextField

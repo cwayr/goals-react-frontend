@@ -3,7 +3,7 @@
 exports[`matches snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="SignupForm"
+    class="LoginForm"
   >
     <div
       class="MuiContainer-root MuiContainer-maxWidthLg css-1oqqzyl-MuiContainer-root"
@@ -45,11 +45,11 @@ exports[`matches snapshot 1`] = `
         class="MuiBox-root css-n3fmse"
       >
         <h1>
-          Sign up for account
+          Log in to account
         </h1>
       </div>
       <form
-        data-testid="signup-form"
+        data-testid="login-form"
       >
         <div
           class="MuiGrid-root MuiGrid-container css-1cs2yco-MuiGrid-root"
@@ -134,12 +134,16 @@ exports[`matches snapshot 1`] = `
               </div>
             </div>
           </div>
+          <div
+            class="MuiBox-root css-0"
+          />
           <button
             class="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeLarge MuiButton-containedSizeLarge MuiButtonBase-root  css-195sjap-MuiButtonBase-root-MuiButton-root"
+            data-testid="login-form-submit"
             tabindex="0"
             type="submit"
           >
-            Sign up
+            Log in
             <span
               class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
             />
@@ -149,7 +153,7 @@ exports[`matches snapshot 1`] = `
             tabindex="0"
             type="button"
           >
-            Log in to account
+            Sign up for new account
             <span
               class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
             />
