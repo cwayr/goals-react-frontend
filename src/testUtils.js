@@ -59,28 +59,4 @@ const UserProvider = ({ children, currentUser = demoUser }) => (
   </UserContext.Provider>
 );
 
-async function utilBeforeEach() {
-  await GoalsAPI.signup(user);
-  await GoalsAPI.createGoal(goal);
-}
-
-async function utilAfterEach() {
-  await GoalsAPI.signout();
-  await GoalsAPI.deleteGoal(goal.id);
-  await GoalsAPI.deleteUser(user.username);
-}
-
-// const renderWithRouter = (ui, { route = "/" } = {}) => {
-//   window.history.pushState({}, "Test page", route);
-
-//   return render(ui, { wrapper: BrowserRouter });
-// };
-
-export {
-  UserProvider,
-  goal,
-  starting_progress,
-  latest_progress,
-  utilBeforeEach,
-  utilAfterEach,
-};
+export { UserProvider, goal, starting_progress, latest_progress };
