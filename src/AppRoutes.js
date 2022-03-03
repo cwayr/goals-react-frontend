@@ -15,11 +15,7 @@ function AppRoutes({ login, signup, logout, createGoal, createProgress }) {
       <Routes>
         <Route
           path="/"
-          element={
-            <Navigate
-              to={currentUser === null ? "login" : currentUser.username}
-            />
-          }
+          element={<Navigate to={currentUser === null ? "login" : "home"} />}
         />
         <Route path="/login" element={<LoginForm login={login} />} />
         <Route path="/signup" element={<SignupForm signup={signup} />} />
