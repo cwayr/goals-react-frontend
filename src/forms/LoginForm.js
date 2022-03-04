@@ -28,7 +28,7 @@ function LoginForm({ login }) {
     }
   }
 
-  async function handleGuestSubmit(e) {
+  async function handleGuestSubmit() {
     let result = await login({ username: "guest", password: "guest" });
     if (result.success) {
       navigate("/home");
