@@ -28,6 +28,15 @@ function LoginForm({ login }) {
     }
   }
 
+  async function handleGuestSubmit(e) {
+    let result = await login({ username: "guest", password: "guest" });
+    if (result.success) {
+      navigate("/home");
+    } else {
+      setFormErrors(result.err[0]);
+    }
+  }
+
   return (
     <div className="LoginForm">
       <LandingLogo />
@@ -76,6 +85,15 @@ function LoginForm({ login }) {
               sx={{ mt: 2, width: 1 / 1 }}
             >
               Sign up for new account
+            </Button>
+            <Button
+              variant="text"
+              size="small"
+              color="primary"
+              onClick={() => handleGuestSubmit()}
+              sx={{ mt: 2, width: 1 / 1 }}
+            >
+              Log in to guest account
             </Button>
           </Grid>
         </form>
